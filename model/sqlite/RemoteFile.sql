@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS RemoteFile (
+    id INTEGER IDENTITY,
+    name TEXT,
+    parentId TEXT DEFAULT 'root',
+    type INTEGER,
+    dateAdded DATETIME DEFAULT CURRENT_TIMESTAMP,
+    dateModified DATETIME DEFAULT NULL
+)
