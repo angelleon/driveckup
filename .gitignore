@@ -2,3 +2,4 @@ driveckupdenv
 driveckupenv
 credentials.json
 mock_files
+**/__pycache__
