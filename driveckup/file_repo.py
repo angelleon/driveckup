@@ -30,5 +30,6 @@ class LocalFileRepo(FileRepo):
 
     def get_dir_cont(self, d_path: Union[str, Path]) -> Path:
         d_path = self.get_dir(d_path)
-        content = [child for child in d_path.iterdir() if (child.is_file() or child.is_dir())]
+        content = [child for child in d_path.iterdir() if (
+            child.is_file() or child.is_dir())]
         return content
