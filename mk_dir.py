@@ -37,7 +37,5 @@ def main():
     mk_dir(root_dir, dir_count, file_count, file_size, binary, levels)
 
 
-
-
 if __name__ == '__main__':
     main()

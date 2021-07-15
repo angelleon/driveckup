@@ -58,7 +58,5 @@ def main():
     mk_file(root_dir, file_size, binary)
 
 
-
-
 if __name__ == '__main__':
     main()

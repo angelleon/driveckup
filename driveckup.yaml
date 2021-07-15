@@ -1,1 +1,6 @@
-client_config_file: credentials.json
+driveckup:
+  workers_count: 5
+  credentials_path: ./credentials.json
+  config_file: ./driveckup.yaml
+  hostname: localhost
+  port: 3757  # drkp
