@@ -18,4 +18,4 @@ class DrkpDB:
             self._db.executemany(sentences)
 
     def open(self):
-        db_file =
+        db_file = None

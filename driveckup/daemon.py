@@ -1,6 +1,5 @@
-from multiprocessing import Semaphore, Queue, Process, Pool, Event
+from multiprocessing import Semaphore, Queue, Process, Event
 # from time import sleep
-from config import DaemonConf, WorkerConf
 from pathlib import Path
 from .driveckup import Driveckup
 
@@ -8,6 +7,7 @@ from .driveckup import Driveckup
 class Worker(Process):
     def __init__(self, queue: Queue, config, path: Path, drive: Driveckup,
                  sem: Semaphore, finish_ev: Event):
+        super().__init__()
         self.config = config
         self.path = path
         self.drive = drive
@@ -32,8 +32,12 @@ class Worker(Process):
 
 
 class Daemon:
-    def __init__(self, conf: DaemonConf, queue: Queue, w_conf: WorkerConf):
+    def __init__(self, conf: dict, worker_conf: dict, drkp: Driveckup, queue: Queue):
         self._conf = conf
-        self._pool = Pool(conf['max_works'])
         self._queue = queue
-        self._w_conf = w_conf
+        self._worker_conf = worker_conf
+        self._drkp = drkp
+        self._workers = [Worker() for _ in range(conf['max_works']()]
+
+    def start(self):
+        pass

@@ -31,3 +31,6 @@ if __f_repo is None:
 
 with __f_repo.open(default_config['driveckup']['config_file']) as f:
     config = yaml.load(f, Loader=yaml.CLoader)
+
+daemon_conf = {}
+worker_conf = {}
