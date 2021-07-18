@@ -5,11 +5,10 @@ from .driveckup import Driveckup
 
 
 class Worker(Process):
-    def __init__(self, queue: Queue, config, path: Path, drive: Driveckup,
+    def __init__(self, queue: Queue, config, drive: Driveckup,
                  sem: Semaphore, finish_ev: Event):
         super().__init__()
         self.config = config
-        self.path = path
         self.drive = drive
         self.sem = sem
         self.queue = queue
@@ -29,15 +28,26 @@ class Worker(Process):
                 self.drive.backup_directory(path)
             if path.is_file():
                 self.drive.backup_file(path)
+            if path.is_symlink():
+                self.drive.backup_symlink(path)
 
 
 class Daemon:
-    def __init__(self, conf: dict, worker_conf: dict, drkp: Driveckup, queue: Queue):
+    def __init__(self, conf: dict, worker_conf: dict, drkp: Driveckup,
+                 queue: Queue):
         self._conf = conf
         self._queue = queue
         self._worker_conf = worker_conf
         self._drkp = drkp
-        self._workers = [Worker() for _ in range(conf['max_works']()]
+        path = None
+        self._sem = Semaphore()
+        self._stop_ev = Event()
+        self._workers = [Worker(queue, worker_conf, path, drkp,
+                                self._sem, self._stop_ev)
+                         for _ in range(conf['max_works'])]
 
     def start(self):
-        pass
+        for w in self._workers:
+            w.start()
+        for w in self._workers:
+            w.join()

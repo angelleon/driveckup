@@ -22,7 +22,8 @@ class FileRepo:
             raise FileNotFoundError(
                 f'The specified path [{str(path)}] does not exist')
         if not path.is_file():
-            raise FileNotFoundError('Specified path [{str(path)}] is not a file')
+            raise FileNotFoundError(
+                'Specified path [{str(path)}] is not a file')
         if not path.stat().st_mode & S_IRUSR:
             username = getpwuid(getuid())[0]
             raise PermissionError(

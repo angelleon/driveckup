@@ -10,13 +10,13 @@ def main():
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-f', '--file', default=None)
     group.add_argument('-d', '--directory', default=None)
-    parser.add_argument('-p', '--dest-path', default=None)
+    parser.add_argument('-p', '--dest-path', default='/driveckup')
     args = parser.parse_args()
     f = args.file
     d = args.directory
     dest_path = args.dest_path
     file_repo = LocalFileRepo()
-    driveckup = Driveckup(file_repo)
+    driveckup = Driveckup(file_repo, dest_path)
     if f is not None:
         driveckup.backup_file(f)
     if d is not None:

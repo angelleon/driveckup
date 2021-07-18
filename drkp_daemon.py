@@ -7,7 +7,7 @@ from multiprocessing import Queue, Event
 
 def main():
     drkp = Driveckup(FileRepo())
-    daemon = Daemon(daemon_conf, worker_conf, queue)
+    daemon = Daemon(daemon_conf, worker_conf)
     daemon.start()
 
 

@@ -5,7 +5,8 @@ from typing import Union
 
 class FileRepo:
     def get(self, f_path: Union[str, Path]) -> Path:
-        pass
+        raise NotImplementedError(
+            'This interface only provides a specificacion\nPlease use a concrete implementation isnstead of this one')
 
 
 class LocalFileRepo(FileRepo):
@@ -33,3 +34,29 @@ class LocalFileRepo(FileRepo):
         content = [child for child in d_path.iterdir() if (
             child.is_file() or child.is_dir())]
         return content
+
+
+class FSNode:
+    def __init__(self, path: Path):
+        self._visited = False
+        self._path = path
+
+
+class PosixFSNode(FSNode):
+    def __init__(self, path: Path):
+        super().__init__(path)
+        self._path = path
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self._visited:
+            raise StopIteration
+        if self._path.is_file():
+            self._visited = True
+            yield self
+        if self._path.is_dir():
+            for item in self._path.iterdir():
+                yield PosixFSNode(item)
+        self._visited = True

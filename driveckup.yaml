@@ -4,3 +4,4 @@ driveckup:
     config_file: ./driveckup.yaml
     hostname: localhost
     port: 3757 # drkp
+    space_calculation: pre # pre

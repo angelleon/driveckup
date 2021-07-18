@@ -1,11 +1,12 @@
 from .file_repo import FileRepo
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
-from io import FileIO
+from pathlib import Path
+from typing import Union
 
 
 class Driveckup:
-    def __init__(self, file_repo: FileRepo):
+    def __init__(self, file_repo: FileRepo, dest_path: Union[str, Path]):
         self.f_repo = file_repo
         self.gauth = GoogleAuth()
         self.gauth.LocalWebserverAuth()
@@ -18,6 +19,8 @@ class Driveckup:
         if f is None:
             raise ValueError('Provided filename is None')
         f = self.f_repo.get(f)
+        assert f is not None
+        assert f.name is not None
         drive_f = self.drive.CreateFile({
             'title': f.name,
             'parents': [

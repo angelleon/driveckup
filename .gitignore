@@ -1,5 +1,9 @@
-driveckupdenv
-driveckupenv
-credentials.json
-mock_files
+spam
+foo
+bar
+baz
+spam
+eggs
 **/__pycache__
+client_secrets.json
+credentials.json
