@@ -34,3 +34,4 @@ with __f_repo.open(default_config['driveckup']['config_file']) as f:
 
 daemon_conf = {}
 worker_conf = {}
+db_conf = {}

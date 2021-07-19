@@ -1,12 +1,31 @@
 import sqlite3
-from config import DBConfig
 from file_repo import FileRepo
 
 
 class DrkpDB:
-    def __init__(self, config: DBConfig, file_repo: FileRepo):
+    def __init__(self, config: dict, file_repo: FileRepo):
+        pass
+
+    def create(self, file_repo: FileRepo):
+        pass
+
+    def open(self):
+        pass
+
+    def add_file(self, path):
+        pass
+
+    def add_dir(self, path):
+        pass
+
+    def add_link(self, path):
+        pass
+
+
+class SQLiteDB(DrkpDB):
+    def __init__(self, config: dict, file_repo: FileRepo):
         self.config = config
-        self.f_repo = f_repo
+        self.f_repo = file_repo
         self._db = sqlite3.connect(**config.connection)
 
     def create(self, file_repo: FileRepo):
@@ -18,4 +37,13 @@ class DrkpDB:
             self._db.executemany(sentences)
 
     def open(self):
-        db_file = None
+        pass
+
+    def add_file(self, path):
+        pass
+
+    def add_dir(self, path):
+        pass
+
+    def add_link(self, path):
+        pass

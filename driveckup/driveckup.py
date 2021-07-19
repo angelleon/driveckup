@@ -62,3 +62,6 @@ class Driveckup:
             if not f.is_file():
                 raise ValueError(f'{f} is not a file')
             self.backup_file(f, drive_d_id)
+
+    def backup_link(self, path):
+        pass

@@ -6,7 +6,8 @@ from typing import Union
 class FileRepo:
     def get(self, f_path: Union[str, Path]) -> Path:
         raise NotImplementedError(
-            'This interface only provides a specificacion\nPlease use a concrete implementation isnstead of this one')
+            '''This interface only provides a specificacion
+Please use a concrete implementation isnstead of this one''')
 
 
 class LocalFileRepo(FileRepo):
