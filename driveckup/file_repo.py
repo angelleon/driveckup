@@ -46,17 +46,52 @@ class PosixFSNode(FSNode):
     def __init__(self, path: Path):
         super().__init__(path)
         self._path = path
-
-    def __iter__(self):
-        return self
+        self._iterated = False
+        self._iterator = None
+        self._child_iterator = None
 
     def __next__(self):
         if self._visited:
             raise StopIteration
         if self._path.is_file():
             self._visited = True
-            yield self
+            return self
         if self._path.is_dir():
-            for item in self._path.iterdir():
-                yield PosixFSNode(item)
-        self._visited = True
+            if self._iterated:
+                if self._iterator is None:
+                    self._iterator = self._path.iterdir()
+                print('Iterating over dir content')
+                if self._child_iterator is not None:
+                    try:
+                        item = next(self._child_iterator)
+                        return PosixFSNode(item)
+                    except StopIteration:
+                        self._child_iterator = None
+                try:
+                    item = next(self._iterator)
+                except StopIteration:
+                    self._visited = True
+                    raise
+                child_node = PosixFSNode(item)
+                if item.is_dir():
+                    self._child_iterator = child_node
+                return next(child_node)
+            self._iterated = True
+            return self
+
+    def __eq__(self, other: Union[FSNode, Path]) -> bool:
+        if not isinstance(other, (FSNode, Path)):
+            return NotImplemented
+        if isinstance(other, Path):
+            return self._path == other
+        return self._path == other._path
+
+    def __iter__(self):
+        print(f'Executing __iter__ from {str(self)}')
+        return self
+
+    def __str__(self):
+        return str(self._path)
+
+    def __repr__(self):
+        return self.__str__()

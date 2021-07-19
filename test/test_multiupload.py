@@ -33,4 +33,3 @@ class TestMultiupload(TestCase):
         u1.join()
         u2.join()
         assert False
-

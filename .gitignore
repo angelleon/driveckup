@@ -7,3 +7,4 @@ eggs
 **/__pycache__
 client_secrets.json
 credentials.json
+mock_files
