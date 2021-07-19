@@ -1,5 +1,6 @@
 import sqlite3
 from file_repo import FileRepo
+from pathlib import Path
 
 
 class DrkpDB:
@@ -12,13 +13,16 @@ class DrkpDB:
     def open(self):
         pass
 
-    def add_file(self, path):
+    def insert(self, path: Path):
         pass
 
-    def add_dir(self, path):
+    def select(self, path: Path):
         pass
 
-    def add_link(self, path):
+    def update(self, path: Path):
+        pass
+
+    def delete(self, path: Path):
         pass
 
 
@@ -39,11 +43,14 @@ class SQLiteDB(DrkpDB):
     def open(self):
         pass
 
-    def add_file(self, path):
+    def insert(self, path: Path):
         pass
 
-    def add_dir(self, path):
+    def select(self, path: Path):
         pass
 
-    def add_link(self, path):
+    def update(self, path: Path):
+        pass
+
+    def delete(self, path: Path):
         pass
