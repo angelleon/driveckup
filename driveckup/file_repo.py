@@ -61,7 +61,6 @@ class PosixFSNode(FSNode):
             if self._iterated:
                 if self._iterator is None:
                     self._iterator = self._path.iterdir()
-                print('Iterating over dir content')
                 if self._child_iterator is not None:
                     try:
                         item = next(self._child_iterator)
@@ -88,7 +87,6 @@ class PosixFSNode(FSNode):
         return self._path == other._path
 
     def __iter__(self):
-        print(f'Executing __iter__ from {str(self)}')
         return self
 
     def __str__(self):
