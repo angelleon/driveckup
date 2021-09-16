@@ -8,3 +8,5 @@ eggs
 **/client_secrets.json
 **/credentials.json
 mock_files
+dist
+**/*.egg-info
