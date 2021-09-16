@@ -1,0 +1,45 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Generate version number
+        run: |
+          version_number="[0-9]+(\.[0-9]+){0,2}"
+          version_pattern="version\s*=\s*${version_number}"
+          version=$(egrep "${version_pattern}" setup.cfg | egrep -o "${version_number}")
+          generated_version="${version}.$(echo $GITHUB_SHA | cut -c-7)"
+          echo Generated version number $generated_version
+          sed_version_parrten="s/version\s*=\s*[0-9]\+\(\.[0-9]\+\)\{0,2\}/version = ${generated_version}/"
+          sed -i "${sed_version_parrten}" setup.cfg
+          cat setup.cfg
+
+      # Runs a set of commands using the runners shell
+      - name: Build pip package
+        run: |
+          pip3 install --user --upgrade build
+          python3 -m build
+          gh --version
