@@ -1,5 +1,5 @@
 from typing import Union
-from utils import FileRepo
+from .utils import FileRepo
 
 import yaml
 from pathlib import Path
