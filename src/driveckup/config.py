@@ -26,7 +26,7 @@ default_config = {
 config = default_config
 
 if __f_repo is None:
-    from utils import FileRepo
+    from .utils import FileRepo
     __f_repo = FileRepo()
 
 with __f_repo.open(default_config['driveckup']['config_file']) as f:
