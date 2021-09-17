@@ -25,6 +25,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Run unit tests
+        run: |
+          pip3 install virtualenv
+          python3 -m virtualenv venv
+          source venv/bin/activate
+          pip install -r requirements-dev.txt
+          pytest .
+
       # Runs a single command using the runners shell
       - name: Generate version number
         run: |
