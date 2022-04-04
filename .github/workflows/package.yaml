@@ -52,7 +52,7 @@ jobs:
           version=$(egrep "${version_pattern}" setup.cfg | egrep -o "${version_number}")
           generated_version="${version}.$(echo $GITHUB_SHA | cut -c-7)"
           echo Generated version number $generated_version
-          sed_version_pattern="s/version\s*=\s*[0-9]\+\(\.[0-9]\+\)\{0,2\}/version = ${generated_version}/"
+          sed_version_pattern="s/version\s*=\s*[0-9]\+\(\.[0-9]\+\)\{0,2\}\./version = ${generated_version}/"
           sed -i "${sed_version_pattern}" setup.cfg
           cat setup.cfg
 
